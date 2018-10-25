@@ -1,5 +1,13 @@
+/****************************************************************************
+*  Includes
+*****************************************************************************/
+
 #include "stdio.h"
 #include "stdlib.h"
+
+/****************************************************************************
+*  Typde definnition
+*****************************************************************************/
 
 typedef int elemType_t;
 typedef struct treeNode{
@@ -7,6 +15,28 @@ typedef struct treeNode{
 	struct treeNode* lchild;
 	struct treeNode* rchild;
 }biTNode,*biTree;
+
+/****************************************************************************
+*  Declaration
+*****************************************************************************/
+
+void createBiTree(biTree *T);
+int getTreeDepth(biTree T);
+int getLeafNodeNum(biTree T);
+int getNodeNum(biTree T);
+void preOrderTraverse(biTree T);
+void inOrderTraverse(biTree T);
+void postOrderTraverse(biTree T);
+void printByLevel(biTree T,int level);
+void levelOrderTraverse(biTree T);
+void exchangeChileTree(biTree T);
+biTree findNode(biTree T,elemType_t e);
+void destroyTree(biTree T);
+void biTreeTest(void);
+
+/****************************************************************************
+*  Function 
+*****************************************************************************/
 
 void createBiTree(biTree *T)
 {
@@ -149,7 +179,7 @@ void destroyTree(biTree T)
 	T = NULL;
 }
 
-int main(void)
+void biTreeTest(void)
 {
 	elemType_t nodeVal;
 	biTree myTree;
@@ -175,5 +205,11 @@ int main(void)
 	printf("levelOrder of the node\n");
 	levelOrderTraverse(findNode(myTree,nodeVal));
 	destroyTree(myTree);
+}
+
+int main(void)
+{
+	biTreeTest();
+	for(;;);
 	return 0;
 }

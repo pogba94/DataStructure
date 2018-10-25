@@ -1,10 +1,21 @@
+/****************************************************************************
+*  Includes
+*****************************************************************************/
+
 #include "stdio.h"
 #include "stdlib.h"
 
+/****************************************************************************
+*  Macro definition
+*****************************************************************************/
+
 #define STACK_INIT_SIZE    (10)
 #define STACK_INC_SIZE     (5)
-
 #define INDICATE_INFO "Stack haven't been created,please create firstly"
+
+/****************************************************************************
+*  Typde definnition
+*****************************************************************************/
 
 typedef int ElemType_t;
 typedef struct stack
@@ -14,6 +25,25 @@ typedef struct stack
 	int stackSize; 
 }Stack;
 typedef int statu_t;
+
+/****************************************************************************
+*  Declaration
+*****************************************************************************/
+
+statu_t StackInit(Stack *stack);
+statu_t StackDestroy(Stack **pStack);
+statu_t StackClear(Stack *stack);
+statu_t StackGetLen(Stack *stack);
+statu_t StackIsEmpty(Stack *stack);
+statu_t StackGetTop(Stack *stack,ElemType_t *e);
+statu_t StackPush(Stack *stack,ElemType_t *e);
+statu_t StackPop(Stack *stack,ElemType_t *e);
+statu_t StackTraverse(Stack *stack);
+void StackDemo(void);
+
+/****************************************************************************
+*  Functions
+*****************************************************************************/
 
 statu_t StackInit(Stack *stack)
 {
@@ -119,7 +149,7 @@ statu_t StackTraverse(Stack *stack)
 	return 0;
 }
 
-void displayMenu(void)
+static void displayMenu(void)
 {
 	printf("-----------------------Menu--------------------------\n");
 	printf("-      1.  stack init          2.  destroy stack    -\n");

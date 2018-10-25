@@ -1,5 +1,12 @@
+/****************************************************************************
+*  Includes
+*****************************************************************************/
 #include "stdio.h"
 #include "stdlib.h"
+
+/****************************************************************************
+*  Typde definnition
+*****************************************************************************/
 
 typedef int elemType_t;
 typedef int statu_t;
@@ -12,7 +19,31 @@ typedef struct listNode
 
 typedef pListNode List;
 
+/****************************************************************************
+*  Macro definition
+*****************************************************************************/
+
 #define INDICATE_INFO "list haven't been created,please create list firstly"
+
+/****************************************************************************
+*  Declaration
+*****************************************************************************/
+
+List ListCreate(void);
+statu_t ListIsEmpty(List list);
+statu_t ListInsertItem(List list,int pos,elemType_t val);
+statu_t ListInsertItemTail(List list,elemType_t val);
+statu_t ListTraverse(List list);
+statu_t ListDestroy(List *list); 
+int ListGetLen(List list);
+pListNode ListFindItem(List list,elemType_t val);
+statu_t ListDeleteItem(List list,elemType_t val);
+void ListDemo(void);
+void ListTest(void);
+
+/****************************************************************************
+*  Function 
+*****************************************************************************/
 
 List ListCreate(void)
 {

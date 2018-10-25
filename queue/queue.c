@@ -1,7 +1,13 @@
+/****************************************************************************
+*  Includes
+*****************************************************************************/
+
 #include "stdio.h"
 #include "stdlib.h"
 
-#define QUEUE_MAX_SIZE     (5)
+/****************************************************************************
+*  Typde definnition
+*****************************************************************************/
 
 typedef int ElemType_t;
 typedef struct Queue{
@@ -12,7 +18,34 @@ typedef struct Queue{
 }Queue;
 typedef int statu_t;
 
+/****************************************************************************
+*  Macro definition
+*****************************************************************************/
+
 #define INDICATE_INFO "Queue haven't been created,please create firstly"
+#define QUEUE_MAX_SIZE     (5)
+
+/****************************************************************************
+*  Declaration
+*****************************************************************************/
+
+Queue* QueueCreat(void);
+void QueueInit(Queue *queue);
+statu_t QueueIsEmpty(Queue *queue);
+statu_t QueueIsFull(Queue *queue);
+statu_t QueuePush(Queue *queue,ElemType_t e);
+statu_t QueuePushMult(Queue *queue,ElemType_t *arr,int n);
+statu_t QueuePop(Queue *queue,ElemType_t *e);
+statu_t QueuePopMult(Queue *queue,ElemType_t *arr,int n);
+statu_t QueueFront(Queue *queue,ElemType_t *e);
+statu_t QueueBack(Queue *queue,ElemType_t *e);
+statu_t QueueGetSize(Queue *queue,int *size);
+void QueueTraverse(Queue *queue);
+void queueDemo(void);
+
+/****************************************************************************
+*  Functions
+*****************************************************************************/
 
 Queue* QueueCreat(void)
 {
@@ -91,7 +124,7 @@ statu_t QueuePopMult(Queue *queue,ElemType_t *arr,int n)
 	return i;
 }
 
-statu_t  QueueFront(Queue *queue,ElemType_t *e)
+statu_t QueueFront(Queue *queue,ElemType_t *e)
 {
 	if(queue == NULL)
 		return -1;
@@ -136,7 +169,7 @@ void QueueTraverse(Queue *queue)
 	}
 }
 
-void displayMenu(void)
+ static void displayMenu(void)
 {
 	printf("-----------------------Menu--------------------------\n");
 	printf("-      1.  create queue        2.  get size         -\n");
