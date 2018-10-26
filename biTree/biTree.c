@@ -45,7 +45,7 @@ void createBiTree(biTree *T)
 	if(data == -1){
 		*T = NULL;
 	}else{
-		*T = (biTree)malloc(sizeof(biTNode)); 
+		*T = (biTree)malloc(sizeof(biTNode));
         (*T)->element = data;
         printf("please input the left child of %d：", data);
         createBiTree(&((*T)->lchild));

@@ -16,10 +16,25 @@ typedef struct BSTNode{
 	struct BSTNode* rchild;
 }BSTNode,*pBSTNode;
 typedef pBSTNode BSTree;
-typedef int statu_t;
 
 /****************************************************************************
 *  Declaration
+*****************************************************************************/
+
+pBSTNode BSTreeInsert(BSTree T,ElemType_t e);
+void BSTreeInOrderTraverse(BSTree T);
+pBSTNode BSTreeFind(BSTree T,ElemType_t e);
+pBSTNode BSTreeFindMax(BSTree T);
+pBSTNode BSTreeFindMin(BSTree T);
+BSTree BSTreeDelete(BSTree T,ElemType_t e);
+int BSTreeDepth(BSTree T);
+int BSTreeSize(BSTree T);
+void printBSTree(BSTree T);
+static void displayMenu(void);
+void BSTreeDemo(void);
+
+/****************************************************************************
+*  Functions
 *****************************************************************************/
 
 pBSTNode BSTreeInsert(BSTree T,ElemType_t e)
@@ -126,6 +141,25 @@ int BSTreeSize(BSTree T)
 	return 0;
 }
 
+void printBSTree(BSTree T)
+{
+	if(T != NULL){
+		printf("----%d----",T->key);
+		if(T->lchild){
+			printf("%d----",T->lchild->key);
+		}else{
+			printf("NULL----");
+		}
+		if(T->rchild){
+			printf("%d----\n",T->rchild->key);
+		}else{
+			printf("NULL----\n");
+		}
+		printBSTree(T->lchild);
+		printBSTree(T->rchild);
+	}
+}
+
 static void displayMenu(void)
 {
 	printf("-----------------------Menu-------------------------\n");
@@ -133,7 +167,7 @@ static void displayMenu(void)
 	printf("-      3. find item           4.  get size         -\n");
 	printf("-      5. find max            6.  find min         -\n");
 	printf("-      7. get depth           8.  traverse tree    -\n");
-	printf("-      9. show menu                                -\n");
+	printf("-      9. show menu           10. print tree       -\n");
 	printf("----------------------------------------------------\n\n");
 }
 
@@ -145,7 +179,7 @@ void BSTreeDemo(void)
 
 	displayMenu();
 	while(1){
-		printf("please choose which action to do:");
+		printf("\nplease choose which action to do:");
 		scanf("%d",&tmp);
 		printf("\n");
 		switch(tmp){
@@ -218,6 +252,11 @@ void BSTreeDemo(void)
 				displayMenu();
 				break;
 			}
+			case 10:
+			{
+				printBSTree(myBSTree);
+				break;
+			}
 			default:
 			printf("illegal cmd\n");
 			break;
@@ -257,10 +296,6 @@ void BSTreeTest(void)
 	printf("inOrder traverse BSTree:\n");
 	BSTreeInOrderTraverse(myBSTree);
 }
-
-/****************************************************************************
-*  Functions
-*****************************************************************************/
 
 int main(void)
 {
