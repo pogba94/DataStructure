@@ -5,6 +5,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "stdbool.h"
+#include "time.h"
+#include "windows.h"
 #include "AVLTree.h"
 
 /****************************************************************************
@@ -59,7 +61,7 @@ static void leftBanlance(AVLTree *pT)
 				break;
 		}
 	}
-	printf("left balance\n");
+//	printf("left balance\n");
 }
 
 static void rightBanlance(AVLTree *pT)
@@ -92,7 +94,7 @@ static void rightBanlance(AVLTree *pT)
 				break;
 		}
 	}
-	printf("right balance\n");
+//	printf("right balance\n");
 }
 
 statu_t AVLTreeInsert(AVLTree *pT,ElemType_t e,bool *taller)
@@ -238,7 +240,7 @@ void AVLTreeInOrderTraverse(AVLTree T)
 {
 	if(T != NULL){
 		AVLTreeInOrderTraverse(T->lchild);
-		printf("%d\n",T->key);
+		printf("%d\t",T->key);
 		AVLTreeInOrderTraverse(T->rchild);
 	}
 }
@@ -296,7 +298,7 @@ int AVLTreeSize(AVLTree T)
 void printAVLTree(AVLTree T)
 {
 	if(T != NULL){
-		printf("----%d----",T->key);
+		printf("----%d----(%d)----",T->key,T->bf);
 		if(T->lchild){
 			printf("%d----",T->lchild->key);
 		}else{
@@ -314,13 +316,14 @@ void printAVLTree(AVLTree T)
 
 static void displayMenu(void)
 {
-	printf("-----------------------Menu-------------------------\n");
-	printf("-      1. insert item         2.  delete item      -\n");
-	printf("-      3. find item           4.  get size         -\n");
-	printf("-      5. find max            6.  find min         -\n");
-	printf("-      7. get depth           8.  traverse tree    -\n");
-	printf("-      9. show menu           10. printTree        -\n");
-	printf("----------------------------------------------------\n\n");
+	printf("-----------------------Menu--------------------------\n");
+	printf("-      1.  insert item         2.  delete item      -\n");
+	printf("-      3.  find item           4.  get size         -\n");
+	printf("-      5.  find max            6.  find min         -\n");
+	printf("-      7.  get depth           8.  traverse tree    -\n");
+	printf("-      9.  show menu           10. print tree       -\n");
+	printf("-      11. random insert       12. print sub tree   -\n");
+	printf("-----------------------------------------------------\n\n");
 }
 
 void AVLTreeDemo(void)
@@ -413,14 +416,58 @@ void AVLTreeDemo(void)
 				printAVLTree(myAVLTree);
 				break;
 			}
+			case 11:
+			{
+				ElemType_t min,max,mod,*dataSet;
+				int num,start,end;
+				bool taller;
+				printf("please input min val of data set:");
+				scanf("%d",&min);
+				printf("please input max val of data set:");
+				scanf("%d",&max);
+				printf("please input the size of data set:");
+				scanf("%d",&num);
+				printf("current time:%ld\n",time(NULL));
+				srand(time(NULL));
+				dataSet = (ElemType_t*)malloc(sizeof(ElemType_t)*num);
+				if(dataSet == NULL){
+					printf("malloc fail\n");
+					break;
+				}
+				mod = max-min+1;
+				for(int i=0;i<num;i++)
+					dataSet[i] = (ElemType_t)(rand()%mod+min);
+				start = GetTickCount();
+				for(int i=0;i<num;i++)
+					AVLTreeInsert(&myAVLTree,dataSet[i],&taller);
+				end = GetTickCount();
+				printf("insert time:%d ms (%d elements)\n",end-start,num);
+				free(dataSet);
+				break;
+			}
+			case 12:
+			{
+				ElemType_t e;
+				AVLTree subTree;
+				printf("please input the root value of sub tree:");
+				scanf("%d",&e);
+				subTree = AVLTreeFind(myAVLTree,e);
+				if(subTree == NULL){
+					printf("sub tree not found\n");
+					break;
+				}
+				printf("print sub tree:%d\n",e);
+				printAVLTree(subTree);
+				break;
+			}
 			default:
-			printf("illegal cmd\n");
-			break;
+			{
+				printf("illegal cmd\n");
+				break;
+			}
 		}
 	}
 }
-
-
 
 int main(void)
 {

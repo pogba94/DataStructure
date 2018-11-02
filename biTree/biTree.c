@@ -29,7 +29,7 @@ void inOrderTraverse(biTree T);
 void postOrderTraverse(biTree T);
 void printByLevel(biTree T,int level);
 void levelOrderTraverse(biTree T);
-void exchangeChileTree(biTree T);
+void exchangeChildTree(biTree T);
 biTree findNode(biTree T,elemType_t e);
 void destroyTree(biTree T);
 void biTreeTest(void);
@@ -138,13 +138,13 @@ void levelOrderTraverse(biTree T)
 	}
 }
 
-void exchangeChileTree(biTree T)
+void exchangeChildTree(biTree T)
 {
 	if(T){
 		biTree temp = NULL;
 		if(T->lchild || T->rchild){
-			exchangeChileTree(T->lchild);
-			exchangeChileTree(T->rchild);
+			exchangeChildTree(T->lchild);
+			exchangeChildTree(T->rchild);
 			temp = T->lchild;
 			T->lchild = T->rchild;
 			T->rchild = temp;
@@ -194,7 +194,7 @@ void biTreeTest(void)
 	printf("levelOrder\n");
 	levelOrderTraverse(myTree);
 /*	printf("exchange child of biTree\n");
-	exchangeChileTree(myTree);
+	exchangeChildTree(myTree);
 	printf("level order after exchange\n");
 	levelOrder(myTree);
 */	printf("depth of biTree:%d\n",getTreeDepth(myTree));

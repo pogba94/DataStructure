@@ -4,6 +4,8 @@
 
 #include "stdio.h"
 #include "stdlib.h"
+#include "time.h"
+#include "windows.h"
 
 /****************************************************************************
 *  Typde definnition
@@ -59,7 +61,7 @@ void BSTreeInOrderTraverse(BSTree T)
 {
 	if(T != NULL){
 		BSTreeInOrderTraverse(T->lchild);
-		printf("%d\n",T->key);
+		printf("%d\t",T->key);
 		BSTreeInOrderTraverse(T->rchild);
 	}
 }
@@ -99,7 +101,6 @@ BSTree BSTreeDelete(BSTree T,ElemType_t e)
 {
 	pBSTNode tmp;
 	if(T == NULL){
-//		printf("not found\n");
 	}else if(T->key > e){
 		T->lchild =  BSTreeDelete(T->lchild,e);
 	}else if(T->key < e){
@@ -162,13 +163,14 @@ void printBSTree(BSTree T)
 
 static void displayMenu(void)
 {
-	printf("-----------------------Menu-------------------------\n");
-	printf("-      1. insert item         2.  delete item      -\n");
-	printf("-      3. find item           4.  get size         -\n");
-	printf("-      5. find max            6.  find min         -\n");
-	printf("-      7. get depth           8.  traverse tree    -\n");
-	printf("-      9. show menu           10. print tree       -\n");
-	printf("----------------------------------------------------\n\n");
+	printf("-----------------------Menu--------------------------\n");
+	printf("-      1.  insert item         2.  delete item      -\n");
+	printf("-      3.  find item           4.  get size         -\n");
+	printf("-      5.  find max            6.  find min         -\n");
+	printf("-      7.  get depth           8.  traverse tree    -\n");
+	printf("-      9.  show menu           10. print tree       -\n");
+	printf("-      11. random insert                            -\n");
+	printf("-----------------------------------------------------\n\n");
 }
 
 void BSTreeDemo(void)
@@ -257,9 +259,39 @@ void BSTreeDemo(void)
 				printBSTree(myBSTree);
 				break;
 			}
+			case 11:
+			{
+				ElemType_t min,max,mod,*dataSet;
+				int num,start,end;
+				printf("please input min val of data set:");
+				scanf("%d",&min);
+				printf("please input max val of data set:");
+				scanf("%d",&max);
+				printf("please input the size of data set:");
+				scanf("%d",&num);
+				printf("current time:%ld\n",time(NULL));
+				srand(time(NULL));
+				dataSet = (ElemType_t*)malloc(sizeof(ElemType_t)*num);
+				if(dataSet == NULL){
+					printf("malloc fail\n");
+					break;
+				}
+				mod = max-min+1;
+				for(int i=0;i<num;i++)
+					dataSet[i] = (ElemType_t)(rand()%mod+min);
+				start = GetTickCount();
+				for(int i=0;i<num;i++)
+					myBSTree = BSTreeInsert(myBSTree,dataSet[i]);
+				end = GetTickCount();
+				printf("insert time:%d ms (%d elements)\n",end-start,num);
+				free(dataSet);
+				break;
+			}
 			default:
-			printf("illegal cmd\n");
-			break;
+			{
+				printf("illegal cmd\n");
+				break;
+			}
 		}
 	}
 }

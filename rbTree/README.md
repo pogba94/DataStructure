@@ -1,4 +1,4 @@
-# binary sort tree
+# red-brack tree
 
 ## 1. basic operation
 - insert item
@@ -14,4 +14,4 @@
 please follow step below to make it work:
 
 __*step 1*__:compile by command `make`  
-__*step 2*__:run by command `./binarySortTree.exe`
+__*step 2*__:run by command `./rbTree.exe`
