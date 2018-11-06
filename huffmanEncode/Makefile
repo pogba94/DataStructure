@@ -1,5 +1,13 @@
-huffmanEncode.exe: huffmanEncode.c
-	gcc -W -Wall -g huffmanEncode.c -o huffmanEncode.exe
+CC = gcc
+CFLAGS = -W -Wall -g
 
+Target = huffmanEncode.exe
+Object = huffmanEncode.o
+RM = rm -f
+
+$(Target) : $(Object)
+	$(CC) $(CFLAGS) -o $(Target) $(Object)
+
+.PHONY : clean
 clean:
-	rm huffmanEncode.exe 
+	$(RM) $(Target) $(Object)

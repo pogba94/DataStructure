@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -W -Wall -g
 
-Target = stack.exe
-Object = stack.o
+Target = AMGraph.exe
+Object = AMGraph.o stack.o queue.o
 RM = rm -f
 
 $(Target) : $(Object)
@@ -11,4 +11,3 @@ $(Target) : $(Object)
 .PHONY : clean
 clean:
 	$(RM) $(Target) $(Object)
-	

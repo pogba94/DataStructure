@@ -1,39 +1,11 @@
 /****************************************************************************
 *  Includes
 *****************************************************************************/
-
+#include "binarySortTree.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "time.h"
 #include "windows.h"
-
-/****************************************************************************
-*  Typde definnition
-*****************************************************************************/
-
-typedef int ElemType_t;
-typedef struct BSTNode{
-	ElemType_t key;
-	struct BSTNode* lchild;
-	struct BSTNode* rchild;
-}BSTNode,*pBSTNode;
-typedef pBSTNode BSTree;
-
-/****************************************************************************
-*  Declaration
-*****************************************************************************/
-
-pBSTNode BSTreeInsert(BSTree T,ElemType_t e);
-void BSTreeInOrderTraverse(BSTree T);
-pBSTNode BSTreeFind(BSTree T,ElemType_t e);
-pBSTNode BSTreeFindMax(BSTree T);
-pBSTNode BSTreeFindMin(BSTree T);
-BSTree BSTreeDelete(BSTree T,ElemType_t e);
-int BSTreeDepth(BSTree T);
-int BSTreeSize(BSTree T);
-void printBSTree(BSTree T);
-static void displayMenu(void);
-void BSTreeDemo(void);
 
 /****************************************************************************
 *  Functions
@@ -173,18 +145,26 @@ static void displayMenu(void)
 	printf("-----------------------------------------------------\n\n");
 }
 
+static void safeFlush(FILE *fp)
+{
+	int ch;
+	while((ch = fgetc(fp)) != EOF && ch != '\n');
+}
+
 void BSTreeDemo(void)
 {
-	int tmp;
+	int cmdId;
 	ElemType_t element;
 	BSTree myBSTree = NULL;
 
 	displayMenu();
 	while(1){
+		cmdId = -1;
+		safeFlush(stdin);
 		printf("\nplease choose which action to do:");
-		scanf("%d",&tmp);
+		scanf("%d",&cmdId);
 		printf("\n");
-		switch(tmp){
+		switch(cmdId){
 			case 1:
 			{
 				printf("please input the element you want to insert:");

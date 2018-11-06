@@ -1,38 +1,13 @@
 /****************************************************************************
 *  Includes
 *****************************************************************************/
-
+#include "rbTree.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "time.h"
 #include "windows.h"
 
-/****************************************************************************
-*  Typde definnition
-*****************************************************************************/
-
-typedef enum{
-	RED = 0,
-	BLACK = 1,
-}color_t;
-
-typedef int ElemType_t;
-typedef struct RBTNode{
-	ElemType_t key;
-	color_t color;
-	struct RBTNode* lchild;
-	struct RBTNode* rchild;
-	struct RBTNode* parent;
-}RBTNode,*pRBTNode;
-typedef pRBTNode RBTree;
-
 char* colorName[2] = {"red","black"};
-
-/****************************************************************************
-*  Declaration
-*****************************************************************************/
-
-
 
 /****************************************************************************
 *  Functions
@@ -219,15 +194,15 @@ int RBTreeDelete(RBTree *pT,ElemType_t e)
 {
 	if(pT != NULL || *pT != NULL)
 		return -1;
-	pRBTNode x = *pT,p = NULL;
+	pRBTNode x = *pT;
 	while(x != NULL){
 		if(x->key == e){
 			break;
 		}else if(x->key > e){
-			p = x;
+//			p = x;
 			x = x->lchild;
 		}else{
-			p = x;
+//			p = x;
 			x = x->rchild;
 		}
 	}
@@ -326,18 +301,26 @@ static void displayMenu(void)
 	printf("-----------------------------------------------------\n\n");
 }
 
+static void safeFlush(FILE *fp)
+{
+	int ch;
+	while((ch = fgetc(fp)) != EOF && ch != '\n');
+}
+
 void RBTreeDemo(void)
 {
-	int tmp;
+	int cmdId;
 	ElemType_t element;
 	RBTree myRBTree = NULL;
 
 	displayMenu();
 	while(1){
+		cmdId = -1;
+		safeFlush(stdin);
 		printf("\nplease choose which action to do:");
-		scanf("%d",&tmp);
+		scanf("%d",&cmdId);
 		printf("\n");
-		switch(tmp){
+		switch(cmdId){
 			case 1:
 			{
 				printf("please input the element you want to insert:");
@@ -448,39 +431,6 @@ void RBTreeDemo(void)
 			}
 		}
 	}
-}
-
-
-void RBTreeTest(void)
-{
-	ElemType_t tmp;
-	pRBTNode pMax,pMin;
-	RBTree myRBTree = NULL;
-
-	for (int i = 0; i < 10; i++)
-	{
-		printf("please input the %d th element:",i);
-		scanf("%d",&tmp);
-		RBTreeInsert(&myRBTree,tmp);
-	}
-	printf("inOrder traverse RBTree:\n");
-	RBTreeInOrderTraverse(myRBTree);
-	printf("please input element you want to find:");
-	scanf("%d",&tmp);
-	if(!RBTreeFind(myRBTree,tmp)){
-		printf("not found\n");
-	}else{
-		printf("found\n");
-	}
-	pMax = RBTreeFindMax(myRBTree);
-	pMin = RBTreeFindMin(myRBTree);
-	printf("max element:%d\n",pMax->key);
-	printf("min element:%d\n",pMin->key);
-	printf("please input element you want to delete:");
-	scanf("%d",&tmp);
-	myRBTree = RBTreeDelete(myRBTree,tmp);
-	printf("inOrder traverse RBTree:\n");
-	RBTreeInOrderTraverse(myRBTree);
 }
 
 int main(void)

@@ -4,6 +4,7 @@
 
 #include "stdio.h"
 #include "stdlib.h"
+#include "stack.h"
 
 /****************************************************************************
 *  Macro definition
@@ -12,34 +13,6 @@
 #define STACK_INIT_SIZE    (10)
 #define STACK_INC_SIZE     (5)
 #define INDICATE_INFO "Stack haven't been created,please create firstly"
-
-/****************************************************************************
-*  Typde definnition
-*****************************************************************************/
-
-typedef int ElemType_t;
-typedef struct stack
-{
-	ElemType_t *base;
-	ElemType_t *top;
-	int stackSize; 
-}Stack;
-typedef int statu_t;
-
-/****************************************************************************
-*  Declaration
-*****************************************************************************/
-
-statu_t StackInit(Stack *stack);
-statu_t StackDestroy(Stack **pStack);
-statu_t StackClear(Stack *stack);
-statu_t StackGetLen(Stack *stack);
-statu_t StackIsEmpty(Stack *stack);
-statu_t StackGetTop(Stack *stack,ElemType_t *e);
-statu_t StackPush(Stack *stack,ElemType_t *e);
-statu_t StackPop(Stack *stack,ElemType_t *e);
-statu_t StackTraverse(Stack *stack);
-void StackDemo(void);
 
 /****************************************************************************
 *  Functions
@@ -160,18 +133,26 @@ static void displayMenu(void)
 	printf("-----------------------------------------------------\n\n");
 }
 
+static void safeFlush(FILE *fp)
+{
+	int ch;
+	while((ch = fgetc(fp)) != EOF && ch != '\n');
+}
+
 void StackDemo(void)
 {
-	int tmp;
+	int cmdId;
 	Stack *myStack = NULL;
 	statu_t status;
 
 	displayMenu();
 	while(1){
+		cmdId = -1;
+		safeFlush(stdin);
 		printf("\nplease choose which action to do:");
-		scanf("%d",&tmp);
+		scanf("%d",&cmdId);
 		printf("\n");
-		switch(tmp){
+		switch(cmdId){
 			case 1:
 			{
 				if(myStack != NULL){
@@ -204,6 +185,7 @@ void StackDemo(void)
 				if(myStack == NULL){
 					printf("%s\n",INDICATE_INFO);
 				}else{
+					ElemType_t tmp;
 					printf("please input item you want to push:");
 					scanf("%d",&tmp);
 					printf("\n");

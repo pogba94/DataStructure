@@ -1,6 +1,13 @@
-queue.exe:queue.c
-	gcc -W -Wall queue.c -o queue.exe
+CC = gcc
+CFLAGS = -W -Wall -g
 
+Target = queue.exe
+Object = queue.o
+RM = rm -f
+
+$(Target) : $(Object)
+	$(CC) $(CFLAGS) -o $(Target) $(Object)
+
+.PHONY : clean
 clean:
-	rm queue.exe
-	
+	$(RM) $(Target) $(Object)

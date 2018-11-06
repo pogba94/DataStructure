@@ -326,18 +326,26 @@ static void displayMenu(void)
 	printf("-----------------------------------------------------\n\n");
 }
 
+static void safeFlush(FILE *fp)
+{
+	int ch;
+	while((ch = fgetc(fp)) != EOF && ch != '\n');
+}
+
 void AVLTreeDemo(void)
 {
-	int tmp;
+	int cmdId;
 	ElemType_t element;
 	AVLTree myAVLTree = NULL;
 
 	displayMenu();
 	while(1){
+		cmdId = -1;
+		safeFlush(stdin);
 		printf("\nplease choose action to do:");
-		scanf("%d",&tmp);
+		scanf("%d",&cmdId);
 		printf("\n");
-		switch(tmp){
+		switch(cmdId){
 			case 1:
 			{
 				bool taller;	

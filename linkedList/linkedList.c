@@ -1,45 +1,16 @@
 /****************************************************************************
 *  Includes
 *****************************************************************************/
+
+#include "linkedList.h"
 #include "stdio.h"
 #include "stdlib.h"
-
-/****************************************************************************
-*  Typde definnition
-*****************************************************************************/
-
-typedef int elemType_t;
-typedef int statu_t;
-
-typedef struct listNode
-{
-	elemType_t data;
-	struct listNode *next;
-}listNode,*pListNode;
-
-typedef pListNode List;
 
 /****************************************************************************
 *  Macro definition
 *****************************************************************************/
 
 #define INDICATE_INFO "list haven't been created,please create list firstly"
-
-/****************************************************************************
-*  Declaration
-*****************************************************************************/
-
-List ListCreate(void);
-statu_t ListIsEmpty(List list);
-statu_t ListInsertItem(List list,int pos,elemType_t val);
-statu_t ListInsertItemTail(List list,elemType_t val);
-statu_t ListTraverse(List list);
-statu_t ListDestroy(List *list); 
-int ListGetLen(List list);
-pListNode ListFindItem(List list,elemType_t val);
-statu_t ListDeleteItem(List list,elemType_t val);
-void ListDemo(void);
-void ListTest(void);
 
 /****************************************************************************
 *  Function 
@@ -190,17 +161,25 @@ static void displayMenu(void)
 	printf("---------------------------------------------------\n\n");
 }
 
+static void safeFlush(FILE *fp)
+{
+	int ch;
+	while((ch = fgetc(fp)) != EOF && ch != '\n');
+}
+
 void ListDemo(void)
 {
-	int tmp;
+	int cmdId;
 	List myList = NULL;
 
 	displayMenu();
 	while(1){
+		cmdId = -1;
+		safeFlush(stdin);
 		printf("please choose which action to do:");
-		scanf("%d",&tmp);
+		scanf("%d",&cmdId);
 		printf("\n");
-		switch(tmp){
+		switch(cmdId){
 			case 1:
 			{
 				if(myList != NULL){

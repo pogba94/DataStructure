@@ -150,26 +150,18 @@ void QueueTraverse(Queue *queue)
 	printf("-----------------------------------------------------\n\n");
 }
 
-static void safeFlush(FILE *fp)
-{
-	int ch;
-	while((ch = fgetc(fp)) != EOF && ch != '\n');
-}
-
 void queueDemo(void)
 {
-	int cmdId;
+	int tmp;
 	Queue *myQueue = NULL;
 	statu_t status;
 
 	displayMenu();
 	while(1){
-		cmdId = -1;
-		safeFlush(stdin);
 		printf("\nplease choose which action to do:");
-		scanf("%d",&cmdId);
+		scanf("%d",&tmp);
 		printf("\n");
-		switch(cmdId){
+		switch(tmp){
 			case 1:
 			{
 				if(myQueue != NULL){
@@ -201,7 +193,6 @@ void queueDemo(void)
 				if(myQueue == NULL){
 					printf("%s\n",INDICATE_INFO);
 				}else{
-					ElemType_t tmp;
 					printf("please input the value of item to be pushed:");
 					scanf("%d",&tmp);
 					printf("\n");
@@ -365,10 +356,4 @@ void queueDemo(void)
 			break;
 		}
 	}
-}
-
-int main(void)
-{
-	queueDemo();
-	for(;;);
 }

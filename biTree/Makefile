@@ -1,5 +1,13 @@
-biTree.exe: biTree.c
-	gcc -W -Wall -g biTree.c -o biTree.exe
+CC = gcc
+CFLAGS = -W -Wall -g
 
+Target = biTree.exe
+Object = biTree.o
+RM = rm -f
+
+$(Target) : $(Object)
+	$(CC) $(CFLAGS) -o $(Target) $(Object)
+
+.PHONY : clean
 clean:
-	rm biTree.exe 
+	$(RM) $(Target) $(Object)

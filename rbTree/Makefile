@@ -1,5 +1,13 @@
-rbTree.exe: rbTree.c
-	gcc -W -Wall -g rbTree.c -o rbTree.exe
+CC = gcc
+CFLAGS = -W -Wall -g
 
+Target = rbTree.exe
+Object = rbTree.o
+RM = rm -f
+
+$(Target) : $(Object)
+	$(CC) $(CFLAGS) -o $(Target) $(Object)
+
+.PHONY : clean
 clean:
-	rm rbTree.exe 
+	$(RM) $(Target) $(Object)

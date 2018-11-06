@@ -1,5 +1,13 @@
-heap.exe: heap.c
-	gcc -W -Wall -g heap.c -o heap.exe
+CC = gcc
+CFLAGS = -W -Wall -g
 
+Target = heap.exe
+Object = heap.o
+RM = rm -f
+
+$(Target) : $(Object)
+	$(CC) $(CFLAGS) -o $(Target) $(Object)
+
+.PHONY : clean
 clean:
-	rm heap.exe 
+	$(RM) $(Target) $(Object)

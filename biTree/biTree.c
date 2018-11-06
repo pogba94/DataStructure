@@ -2,37 +2,9 @@
 *  Includes
 *****************************************************************************/
 
+#include "biTree.h"
 #include "stdio.h"
 #include "stdlib.h"
-
-/****************************************************************************
-*  Typde definnition
-*****************************************************************************/
-
-typedef int elemType_t;
-typedef struct treeNode{
-	elemType_t element;
-	struct treeNode* lchild;
-	struct treeNode* rchild;
-}biTNode,*biTree;
-
-/****************************************************************************
-*  Declaration
-*****************************************************************************/
-
-void createBiTree(biTree *T);
-int getTreeDepth(biTree T);
-int getLeafNodeNum(biTree T);
-int getNodeNum(biTree T);
-void preOrderTraverse(biTree T);
-void inOrderTraverse(biTree T);
-void postOrderTraverse(biTree T);
-void printByLevel(biTree T,int level);
-void levelOrderTraverse(biTree T);
-void exchangeChildTree(biTree T);
-biTree findNode(biTree T,elemType_t e);
-void destroyTree(biTree T);
-void biTreeTest(void);
 
 /****************************************************************************
 *  Function 
@@ -160,9 +132,9 @@ biTree findNode(biTree T,elemType_t e)
 		return T;
 	}else{
 		biTree p;
-		if(p = findNode(T->lchild,e))
+		if((p = findNode(T->lchild,e)))
 			return p;
-		if(p = findNode(T->rchild,e))
+		if((p = findNode(T->rchild,e)))
 			return p;
 		return NULL;
 	}

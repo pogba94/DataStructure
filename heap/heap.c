@@ -1,23 +1,16 @@
+/****************************************************************************
+*  Includes
+*****************************************************************************/
+
+#include "heap.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
 #include "time.h"
 
-typedef int ElemType_t;
-typedef enum heapType{
-	BIG_TOP = 0,
-	SMALL_TOP = 1,
-}heapType;
-
-typedef struct BHeap
-{
-	ElemType_t *data;
-	int capacity;
-	int size;
-	heapType type;
-}BHeap,*pBHeap;
-
-typedef int statu_t;
+/****************************************************************************
+*  Macro definition
+*****************************************************************************/
 
 #define HEAP_INIT_SIZE (20)
 #define HEAP_INC_SIZE  (10)
@@ -205,18 +198,26 @@ static void displayMenu(void)
 	printf("-----------------------------------------------------\n\n");
 }
 
+static void safeFlush(FILE *fp)
+{
+	int ch;
+	while((ch = fgetc(fp)) != EOF && ch != '\n');
+}
+
 void BHeapDemo(void)
 {
-	int tmp;
+	int cmdId;
 	ElemType_t element;
 	pBHeap myBHeap = NULL;
 
 	displayMenu();
 	while(1){
+		cmdId = -1;
+		safeFlush(stdin);
 		printf("\nplease choose action to do:");
-		scanf("%d",&tmp);
+		scanf("%d",&cmdId);
 		printf("\n");
-		switch(tmp){
+		switch(cmdId){
 			case 1:
 			{
 				if(myBHeap != NULL)
